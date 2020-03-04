@@ -13,4 +13,4 @@ stable" \
 #&& usermod -a -G docker jenkins
 #SHELL ["/bin/bash", "-c"]
 #USER root
-#ENTRYPOINT ["/bin/bash", "-c"]
+ENTRYPOINT ["jenkins-slave"]
