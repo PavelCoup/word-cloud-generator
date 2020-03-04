@@ -8,9 +8,9 @@ $(lsb_release -cs) \
 stable" \
 && apt-get update \
 && apt-get install -y docker-ce docker-ce-cli containerd.io
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+#ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
 #RUN useradd -u 105 jenkins \
 #&& usermod -a -G docker jenkins
 #SHELL ["/bin/bash", "-c"]
-USER root
-ENTRYPOINT ["/bin/bash", "-c"]
+#USER root
+#ENTRYPOINT ["/bin/bash", "-c"]
