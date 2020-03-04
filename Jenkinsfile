@@ -30,8 +30,8 @@ pipeline {
                     cd /go/word-cloud-generator
                     sed -i \'s/1.DEVELOPMENT/1.${BUILD_NUMBER}/g\' ./rice-box.go
                     make
-                    md5sum artifacts/*/word-cloud-generator* >artifacts/word-cloud-generator.md5
-                    gzip artifacts/*/word-cloud-generator*                    
+                    md5sum /go/word-cloud-generator/artifacts/*/word-cloud-generator* >artifacts/word-cloud-generator.md5
+                    gzip /go/word-cloud-generator/artifacts/*/word-cloud-generator*                    
                 """
             }
         }
