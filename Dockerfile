@@ -9,3 +9,4 @@ stable" \
 && apt-get update \
 && apt-get install -y docker-ce docker-ce-cli containerd.io
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+USER root
