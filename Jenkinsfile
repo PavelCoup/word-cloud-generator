@@ -8,13 +8,7 @@ pipeline {
     }
 
     stages {
-        
-    //    stage('net for jenkins-slave') {
-    //        steps {
-    //            sh 'docker network connect pavel_project_net jenkins-slave'
-    //        }
-    //    }        
-                
+ 
         stage('get source code') {
             steps {
                 sh script: """
