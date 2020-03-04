@@ -2,7 +2,6 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            label 'jenkins-slave'
             args '-t jenkins-slave -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
