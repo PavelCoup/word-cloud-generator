@@ -10,7 +10,7 @@ pipeline {
         
         stage('net for jenkins-slave') {
             steps {
-                sh script: """docker network connect pavel_project_net jenkins-slave"""
+                sh 'docker network connect pavel_project_net jenkins-slave'
             }
         }        
                 
