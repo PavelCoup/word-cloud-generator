@@ -1,5 +1,2 @@
-FROM golang:1.13
-
-RUN go get -u golang.org/x/lint/golint
-RUN go get github.com/GeertJohan/go.rice/rice
-RUN go get -u github.com/tools/godep
+FROM golang:latest
+RUN apt-get update && apt-get install openjdk-11-jdk
