@@ -16,7 +16,6 @@ pipeline {
                 
         stage('get source code') {
             steps {
-                sh 'sleep 120'
                 sh script: """
                     cd /go
                     git clone https://github.com/PavelCoup/word-cloud-generator.git
