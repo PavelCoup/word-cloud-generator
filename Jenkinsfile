@@ -42,3 +42,4 @@ pipeline {
         }
     }
 }
+// docker network connect your-network-name container-name
