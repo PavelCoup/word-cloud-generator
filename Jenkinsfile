@@ -2,17 +2,17 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            args '--name jenkins-slave -u 0:0 -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--name jenkins-slave -u 0:0 --network=pavel_project_net -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
     stages {
         
-        stage('net for jenkins-slave') {
-            steps {
-                sh 'docker network connect pavel_project_net jenkins-slave'
-            }
-        }        
+    //    stage('net for jenkins-slave') {
+    //        steps {
+    //            sh 'docker network connect pavel_project_net jenkins-slave'
+    //        }
+    //    }        
                 
         stage('get source code') {
             steps {
