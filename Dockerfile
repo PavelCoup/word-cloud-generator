@@ -8,4 +8,5 @@ $(lsb_release -cs) \
 stable" \
 && apt-get update \
 && apt-get install -y docker-ce docker-ce-cli containerd.io
+RUN apt-get install -y jq
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
