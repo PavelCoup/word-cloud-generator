@@ -2,18 +2,25 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            label 'golang_make'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            label 'jenkins-slave'
+            args '-t jenkins-slave -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
     stages {
-       
+        
+        stage('net for jenkins-slave') {
+            steps {
+                sh script: """docker network connect pavel_project_net jenkins-slave"""
+            }
+        }        
+                
         stage('get source code') {
             steps {
+                sh 'sleep 120'
                 sh script: """
                     cd /go
-                    git clone https://github.com/L-Eugene/word-cloud-generator.git
+                    git clone https://github.com/PavelCoup/word-cloud-generator.git
                 """
             }
         }
@@ -29,9 +36,7 @@ pipeline {
                 """
             }
         }
-        
-        
-        
+
         stage('upload nexus') {
             steps {
                 nexusArtifactUploader artifacts: [[artifactId: 'word-cloud-generator', classifier: '', file: 'artifacts/linux/word-cloud-generator.gz', type: 'gz']], credentialsId: 'nexus-creds', groupId: '1', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'word-cloud-generator', version: '1.$BUILD_NUMBER'
