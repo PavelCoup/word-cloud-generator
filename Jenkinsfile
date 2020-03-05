@@ -9,14 +9,14 @@ pipeline {
 
     stages {
  
-        stage('get source code') {
-            steps {
-                sh script: """
-                    cd /go
-                    git clone https://github.com/PavelCoup/word-cloud-generator.git
-                """
-            }
-        }
+        //stage('get source code') {
+        //    steps {
+        //        sh script: """
+        //            cd /go
+        //            git clone https://github.com/PavelCoup/word-cloud-generator.git
+        //        """
+        //    }
+        //}
         
         stage('make') {
             environment {
