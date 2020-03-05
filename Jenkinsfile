@@ -19,13 +19,16 @@ pipeline {
         }
         
         stage('make') {
+            environment {
+                GOPATH = "${WORKSPACE}"
+                PATH = "$PATH:${WORKSPACE}/bin"
+                }   
             steps {
                 sh script: """
-                    cd /go/word-cloud-generator
                     sed -i \'s/1.DEVELOPMENT/1.${BUILD_NUMBER}/g\' ./rice-box.go
                     make
-                    md5sum /go/word-cloud-generator/artifacts/*/word-cloud-generator* >artifacts/word-cloud-generator.md5
-                    gzip /go/word-cloud-generator/artifacts/*/word-cloud-generator*
+                    md5sum artifacts/*/word-cloud-generator* >artifacts/word-cloud-generator.md5
+                    gzip artifacts/*/word-cloud-generator*
                 """
             }
         }
@@ -35,8 +38,8 @@ pipeline {
                 AN_ACCESS_KEY = credentials('nexus-creds') 
             }
             steps {
-                sh "curl --fail -u ${AN_ACCESS_KEY} --upload-file /go/word-cloud-generator/artifacts/linux/word-cloud-generator.gz 'http://nexus:8081/repository/word-cloud-generator/'"
-                //nexusArtifactUploader artifacts: [[artifactId: 'word-cloud-generator', classifier: '', file: '/go/word-cloud-generator/artifacts/linux/word-cloud-generator.gz', type: 'gz']], credentialsId: 'nexus-creds', groupId: '1', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'word-cloud-generator', version: '1.$BUILD_NUMBER'
+                //sh "curl --fail -u ${AN_ACCESS_KEY} --upload-file /go/word-cloud-generator/artifacts/linux/word-cloud-generator.gz 'http://nexus:8081/repository/word-cloud-generator/'"
+                nexusArtifactUploader artifacts: [[artifactId: 'word-cloud-generator', classifier: '', file: '/go/word-cloud-generator/artifacts/linux/word-cloud-generator.gz', type: 'gz']], credentialsId: 'nexus-creds', groupId: '1', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'word-cloud-generator', version: '1.$BUILD_NUMBER'
             }
         }
     }
