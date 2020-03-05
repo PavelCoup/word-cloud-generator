@@ -16,7 +16,10 @@ pipeline {
                     #export GOPATH="${WORKSPACE}"
                     export PATH="\$PATH:${WORKSPACE}/bin"
                     sed -i \'s/1.DEVELOPMENT/1.${BUILD_NUMBER}/g\' ./rice-box.go
-                    make
+                    make lint
+                    make test
+                    make clean
+                    make build
                     md5sum artifacts/*/word-cloud-generator* >artifacts/word-cloud-generator.md5
                     gzip artifacts/*/word-cloud-generator*
                     chmod -R 777 /workspace
