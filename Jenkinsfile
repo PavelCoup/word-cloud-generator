@@ -31,7 +31,7 @@ pipeline {
         stage('tests') {
             environment {
                 NEXUS_CREDS = credentials('nexus-creds')
-                NEXUS_CURL = "curl -u ${NEXUS_CREDS} http://nexus:8081/repository/word-cloud-generator/1/word-cloud-generator/1.${BUILD_NUMBER}/word-cloud-generator-1.${BUILD_NUMBER}.gz"
+                NEXUS_CURL = "curl -u ${NEXUS_CREDS} http://127.0.0.1:8081/repository/word-cloud-generator/1/word-cloud-generator/1.${BUILD_NUMBER}/word-cloud-generator-1.${BUILD_NUMBER}.gz"
                 
             }
             
