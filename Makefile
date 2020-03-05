@@ -1,6 +1,6 @@
 BINARY=word-cloud-generator
 
-all: clean godep test build
+all: lint test clean build
 
 lint: vet fmt
 	@go get -u golang.org/x/lint/golint
