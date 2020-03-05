@@ -3,7 +3,7 @@ SHELL ["/bin/bash", "-c"]
 ARG NEXUS_CREDS
 ARG BUILD_NUMBER
 RUN apt-get update && apt-get install -y curl
-RUN cd /tmp && curl -O -u admin:admin -X GET http://$(docker-machine ip default):8081/repository/word-cloud-generator/1/word-cloud-generator/1.49/word-cloud-generator-1.49.gz \
+RUN cd /tmp && curl -O -u admin:admin -X GET http://127.0.0.1:8081/repository/word-cloud-generator/1/word-cloud-generator/1.49/word-cloud-generator-1.49.gz \
 && gunzip word-cloud-generator-1.49.gz
 
 FROM alpine:latest
