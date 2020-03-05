@@ -4,7 +4,7 @@ pipeline {
             filename 'Dockerfile'
             args '-u 0:0 --name jenkins-slave --network=pavel_project_net -v /var/run/docker.sock:/var/run/docker.sock -v workspace:/go'
             additionalBuildArgs '-t jenkins-slave'
-            customWorkspace '/go/word-cloud-generator'
+            customWorkspace '/workspace/${ITEM_FULL_NAME}'
         }
     }
 
