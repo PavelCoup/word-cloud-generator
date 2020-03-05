@@ -8,4 +8,5 @@ RUN apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
 RUN go get -u golang.org/x/lint/golint
 RUN go get github.com/GeertJohan/go.rice/rice
 RUN go get -u github.com/tools/godep
+RUN go get -u github.com/gorilla/mux
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
