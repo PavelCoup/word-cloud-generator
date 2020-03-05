@@ -3,7 +3,7 @@ pipeline {
         dockerfile {
             filename 'Dockerfile'
             args '-u 0:0 --name jenkins-slave --network=pavel_project_net -v /var/run/docker.sock:/var/run/docker.sock'
-            additionalBuildArgs '-t jenkins-slave'
+            additionalBuildArgs '-t jenkins-slave -v workspace:/go'
             customWorkspace '/go'
         }
     }
