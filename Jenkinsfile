@@ -31,12 +31,10 @@ pipeline {
         stage('tests') {
             environment {
                 NEXUS_CREDS = credentials('nexus-creds')
-                NEXUS_CURL = "curl  -O -u ${NEXUS_CREDS} -X GET http://127.0.0.1:8081/repository/word-cloud-generator/1/word-cloud-generator/1.${BUILD_NUMBER}/word-cloud-generator-1.${BUILD_NUMBER}.gz"
-                
             }
             
             steps {
-                sh 'docker build -t alpine_wcg --build-arg NEXUS_CURL="${NEXUS_CURL}" --build-arg BUILD_NUMBER=${BUILD_NUMBER} -f ./wcg/Dockerfile .'
+                sh 'docker build -t alpine_wcg --build-arg NEXUS_CREDS=${NEXUS_CREDS} --build-arg BUILD_NUMBER=${BUILD_NUMBER} -f ./wcg/Dockerfile .'
                 sh 'docker run -d -u 0:0 --name alpine_wcg --network=pavel_project_net alpine_wcg'
                 sh script: """
                     res=`curl -s -H "Content-Type: application/json" -d '{"text":"ths is a really really really important thing this is"}' http://alpine_wcg:8888/version | jq '. | length'`
