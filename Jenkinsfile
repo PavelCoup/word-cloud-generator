@@ -8,21 +8,9 @@ pipeline {
     }
 
     stages {
- 
-        //stage('get source code') {
-        //    steps {
-        //        sh script: """
-        //            cd /go
-        //            git clone https://github.com/PavelCoup/word-cloud-generator.git
-        //        """
-        //    }
-        //}
         
         stage('make') {
-            environment {
-                GOPATH = "${WORKSPACE}"
-                PATH = "$PATH:${WORKSPACE}/bin"
-                }   
+
             steps {
                 sh script: """
                     export GOPATH="${WORKSPACE}"
@@ -36,11 +24,7 @@ pipeline {
         }
 
         stage('upload nexus') {
-            environment { 
-                AN_ACCESS_KEY = credentials('nexus-creds') 
-            }
             steps {
-                //sh "curl --fail -u ${AN_ACCESS_KEY} --upload-file /go/word-cloud-generator/artifacts/linux/word-cloud-generator.gz 'http://nexus:8081/repository/word-cloud-generator/'"
                 nexusArtifactUploader artifacts: [[artifactId: 'word-cloud-generator', classifier: '', file: 'artifacts/linux/word-cloud-generator.gz', type: 'gz']], credentialsId: 'nexus-creds', groupId: '1', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'word-cloud-generator', version: '1.$BUILD_NUMBER'
             }
         }
