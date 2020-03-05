@@ -28,7 +28,25 @@ pipeline {
             }
         }
         
+        stage('tests') {
+            steps {
+                sh 'docker build -t alpine_wcg --build-arg VERSION=1.${BUILD_NUMBER} -f ./wcg/Dockerfile .'
+                sh 'docker run -d -u 0:0 --name alpine_wcg --network=pavel_project_net alpine_wcg'
+                sh script: """
+                    res=`curl -s -H "Content-Type: application/json" -d '{"text":"ths is a really really really important thing this is"}' http://alpine_wcg:8888/version | jq '. | length'`
+                    if [ "1" != "\$res" ]; then
+                      exit 99
+                    fi
+
+                    res=`curl -s -H "Content-Type: application/json" -d '{"text":"ths is a really really really important thing this is"}' http://alpine_wcg:8888/api | jq '. | length'`
+                    if [ "7" != "\$res" ]; then
+                      exit 99
+                    fi
+                """
+                sh 'docker rm -f alpine_wcg'
+                sh 'docker rmi alpine_wcg'
+            }
+        }
         
     }
 }
-// docker network connect your-network-name container-name
