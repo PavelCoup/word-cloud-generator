@@ -1,4 +1,5 @@
 FROM debian AS wcg
+SHELL ["/bin/bash", "-c"]
 ARG NEXUS_CREDS
 ARG BUILD_NUMBER
 RUN apt-get update && apt-get install -y curl
