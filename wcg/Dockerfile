@@ -1,8 +1,8 @@
 FROM debian AS wcg
 ARG NEXUS_CURL
 ARG BUILD_NUMBER
-RUN apt-get update && apt-get install -y curl \
-&& cd / && ${NEXUS_CURL} \
+RUN apt-get update && apt-get install -y curl
+RUN cd / && ${NEXUS_CURL} \
 && gunzip word-cloud-generator-1.${BUILD_NUMBER}.gz
 
 FROM alpine:latest
