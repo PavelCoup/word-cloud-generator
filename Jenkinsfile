@@ -2,8 +2,8 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile'
-            args '-u 0:0 --name jenkins-slave --network=pavel_project_net -v /var/run/docker.sock:/var/run/docker.sock'
-            additionalBuildArgs '-t jenkins-slave -v workspace:/go'
+            args '-u 0:0 --name jenkins-slave --network=pavel_project_net -v /var/run/docker.sock:/var/run/docker.sock -v workspace:/go'
+            additionalBuildArgs '-t jenkins-slave'
             customWorkspace '/go/word-cloud-generator'
         }
     }
