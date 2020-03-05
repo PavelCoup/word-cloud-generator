@@ -56,6 +56,10 @@ pipeline {
                 sh 'docker rmi alpine_wcg'
             }
         }
-        
+    }
+    post { 
+        always { 
+            deleteDir()
+        }
     }
 }
