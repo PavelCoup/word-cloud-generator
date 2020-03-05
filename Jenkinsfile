@@ -19,6 +19,7 @@ pipeline {
                     make
                     md5sum artifacts/*/word-cloud-generator* >artifacts/word-cloud-generator.md5
                     gzip artifacts/*/word-cloud-generator*
+                    chmod -R 777 /workspace
                 """
             }
         }
