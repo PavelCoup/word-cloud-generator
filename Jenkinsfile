@@ -36,7 +36,7 @@ pipeline {
             }
             
             steps {
-                sh "cd / && ${NEXUS_CURL}"
+                sh "cd /tmp && ${NEXUS_CURL}"
                 sh 'docker build -t alpine_wcg --build-arg NEXUS_CURL="${NEXUS_CURL}" --build-arg BUILD_NUMBER=${BUILD_NUMBER} -f ./wcg/Dockerfile .'
                 sh 'docker run -d -u 0:0 --name alpine_wcg --network=pavel_project_net alpine_wcg'
                 sh script: """
