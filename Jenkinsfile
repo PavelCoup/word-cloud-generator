@@ -13,7 +13,7 @@ pipeline {
         stage('make') {
             steps {
                 sh script: """
-                    export GOPATH="${WORKSPACE}"
+                    #export GOPATH="${WORKSPACE}"
                     export PATH="\$PATH:${WORKSPACE}/bin"
                     sed -i \'s/1.DEVELOPMENT/1.${BUILD_NUMBER}/g\' ./rice-box.go
                     make
