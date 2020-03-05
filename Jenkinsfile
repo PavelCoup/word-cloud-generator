@@ -35,9 +35,9 @@ pipeline {
             
             steps {
                 sh script: """
-                docker build  -t alpine_wcg --network=pavel_project_net \
-                --build-arg NEXUS_CREDS=${NEXUS_CREDS} --build-arg BUILD_NUMBER=${BUILD_NUMBER} \
-                -f ./wcg/Dockerfile .
+                    docker build  -t alpine_wcg --network=pavel_project_net \
+                    --build-arg NEXUS_CREDS=${NEXUS_CREDS} --build-arg BUILD_NUMBER=${BUILD_NUMBER} \
+                    -f ./wcg/Dockerfile .
                 """
                 sh 'docker run -d -u 0:0 --name alpine_wcg --network=pavel_project_net alpine_wcg'
                 sh script: """
