@@ -1,16 +1,17 @@
 pipeline {
     agent {
-        dockerfile {
-            filename 'Dockerfile'
-            args '-u 0:0 --name jenkins-slave --network=pavel_project_net -v /var/run/docker.sock:/var/run/docker.sock'
-            //customWorkspace '/tmp'
+        node {
+            dockerfile {
+                filename 'Dockerfile'
+                args '-u 0:0 --name jenkins-slave --network=pavel_project_net -v /var/run/docker.sock:/var/run/docker.sock'
+            }
+            customWorkspace '/tmp'
         }
     }
 
     stages {
         
         stage('make') {
-
             steps {
                 sh script: """
                     export GOPATH="${WORKSPACE}"
@@ -28,6 +29,8 @@ pipeline {
                 nexusArtifactUploader artifacts: [[artifactId: 'word-cloud-generator', classifier: '', file: 'artifacts/linux/word-cloud-generator.gz', type: 'gz']], credentialsId: 'nexus-creds', groupId: '1', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'word-cloud-generator', version: '1.$BUILD_NUMBER'
             }
         }
+        
+        
     }
 }
 // docker network connect your-network-name container-name
