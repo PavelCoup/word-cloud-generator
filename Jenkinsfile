@@ -56,14 +56,14 @@ pipeline {
                       exit 99
                     fi
                 """
-                sh 'docker rm -f alpine_wcg'
-                sh 'docker rmi alpine_wcg'
             }
         }
     }
     post { 
         always { 
             deleteDir()
+            sh 'docker rm -f alpine_wcg'
+            sh 'docker rmi alpine_wcg'
         }
     }
 }
